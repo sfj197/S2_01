@@ -14,6 +14,14 @@ zipcode int not null
 engine= InnoDB
 default character set = utf8mb4;
 
+create table playlists(
+playlist_id int not null auto_increment primary key,
+name varchar(50) not null,
+date date not null
+)
+engine= InnoDB
+default character set = utf8mb4;
+
 create table users_create_playlists(
 user_id int not null,
 playlist_id int not null,
@@ -34,44 +42,12 @@ on delete cascade
 engine= InnoDB
 default character set = utf8mb4;
 
-create table playlists(
-playlist_id int not null auto_increment primary key,
-name varchar(50) not null,
-date date not null
-)
-engine= InnoDB
-default character set = utf8mb4;
 
 create table tags(
 tag_id int not null auto_increment primary key,
 name varchar(50) not null,
 video_id int not null,
-index video_id(video_id asc),
-constraint fk_tags_videos
-foreign key(video_id)
-references videos(video_id)
-on delete no action
-on update no action
-)
-engine= InnoDB
-default character set = utf8mb4;
-
-create table videos_has_tags(
-video_id int not null,
-tag_id int not null,
-primary key(video_id,tag_id),
-index video_id(video_id asc),
-constraint fk_vht_videos
-foreign key (video_id)
-references videos(video_id)
-on delete cascade
-on update cascade,
-index tag_id(tag_id),
-constraint fk_vht_tags
-foreign key (tag_id)
-references tags(tag_id)
-on delete cascade
-on update cascade
+index video_id(video_id asc)
 )
 engine= InnoDB
 default character set = utf8mb4;
@@ -99,6 +75,28 @@ on update cascade
 )
 engine= InnoDB
 default character set = utf8mb4;
+
+create table videos_has_tags(
+video_id int not null,
+tag_id int not null,
+primary key(video_id,tag_id),
+index video_id(video_id asc),
+constraint fk_vht_videos
+foreign key (video_id)
+references videos(video_id)
+on delete cascade
+on update cascade,
+index tag_id(tag_id),
+constraint fk_vht_tags
+foreign key (tag_id)
+references tags(tag_id)
+on delete cascade
+on update cascade
+)
+engine= InnoDB
+default character set = utf8mb4;
+
+
 
 create table likes_dislikes(
 user_id int not null,
