@@ -113,7 +113,7 @@ default character set = utf8mb4;
 create table Orders(
 Order_Id int not null auto_increment primary key,
 Date_Hour DateTime not null,
-NIF int ,
+NIF int not null,
 Customer_Id int not null,
 HD_Id int,
 Store_Id int not null,
